@@ -55,35 +55,31 @@ export default function DeveloperRequestForm({ onSubmitSuccess }) {
     setIsSubmitting(true);
 
     try {
-      let result = null;
-      try {
-        const response = await fetch('https://api.smlone.cloud/api/request', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            nama_pengaju: formData.namaPengaju,
-            no_whatsapp: formData.noWhatsapp,
-            email: formData.email,
-            nama_fitur: formData.namaFitur,
-            deskripsi: formData.deskripsiRequest,
-            prioritas: formData.prioritas || 'Medium'
-          }),
-        });
+      const response = await fetch('https://api.smlone.cloud/api/request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nama_pengaju: formData.namaPengaju,
+          no_whatsapp: formData.noWhatsapp,
+          email: formData.email,
+          nama_fitur: formData.namaFitur,
+          deskripsi: formData.deskripsiRequest,
+          prioritas: formData.prioritas || 'Medium'
+        }),
+      });
 
-        if (response.ok) {
-          result = await response.json();
-        } else {
-          console.warn(`API returned ${response.status}. Continuing submission...`);
-        }
-      } catch (apiErr) {
-        console.warn('Backend API connection failed, proceeding locally:', apiErr);
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.message || `Gagal mengirim request (${response.status})`);
       }
+
+      const result = await response.json().catch(() => null);
 
       // Normalize request payload for display & local storage
       const requestData = {
-        id: (result && (result.id || result.request_id)) ? (result.id || result.request_id) : ('REQ-' + Date.now().toString().slice(-6)),
+        id: (result && (result.id || result.request_id || result.data?.id)) ? (result.id || result.request_id || result.data?.id) : ('REQ-' + Date.now().toString().slice(-6)),
         namaPengaju: formData.namaPengaju,
         noWhatsapp: formData.noWhatsapp,
         email: formData.email,

@@ -6,19 +6,27 @@ export default function RequestSuccessCard({ requestData, onNewRequest }) {
 
   if (!requestData) return null;
 
+  const namaPengaju = requestData.nama_pengaju || requestData.namaPengaju || '-';
+  const noWhatsapp = requestData.no_whatsapp || requestData.noWhatsapp || '-';
+  const email = requestData.email || '-';
+  const namaFitur = requestData.nama_fitur || requestData.namaFitur || '-';
+  const deskripsi = requestData.deskripsi || requestData.deskripsiRequest || '-';
+  const prioritas = requestData.prioritas || 'Medium';
+  const reqId = requestData.id || requestData.request_id || 'REQ-839201';
+
   const handleCopy = () => {
-    const text = `*REQUEST DEVELOPER #${requestData.id}*
+    const text = `*REQUEST DEVELOPER #${reqId}*
 ----------------------------------------
-*Nama Pengaju:* ${requestData.namaPengaju}
-*No. WhatsApp:* ${requestData.noWhatsapp}
-*Email:* ${requestData.email}
-*Nama Fitur:* ${requestData.namaFitur}
-*Prioritas:* ${requestData.prioritas}
+*Nama Pengaju:* ${namaPengaju}
+*No. WhatsApp:* ${noWhatsapp}
+*Email:* ${email}
+*Nama Fitur:* ${namaFitur}
+*Prioritas:* ${prioritas}
 *Status:* Menunggu Review Developer
 *Waktu:* ${requestData.tanggal || new Date().toLocaleString('id-ID')}
 
 *Deskripsi:*
-${requestData.deskripsiRequest}
+${deskripsi}
 ----------------------------------------
 Pantau Status: https://admin.smlone.id`;
 
@@ -55,13 +63,13 @@ Pantau Status: https://admin.smlone.id`;
             <div>
               <span className="ticket-label">ID TIKET REQUEST</span>
               <div className="ticket-id-value">
-                #{requestData.id || 'REQ-839201'}
+                #{reqId}
               </div>
             </div>
 
             <div className="ticket-priority-wrap">
-              <span className={`badge-priority ${requestData.prioritas ? requestData.prioritas.toLowerCase() : 'medium'}`}>
-                Prioritas: {requestData.prioritas || 'Medium'}
+              <span className={`badge-priority ${prioritas.toLowerCase()}`}>
+                Prioritas: {prioritas}
               </span>
             </div>
           </div>
@@ -70,7 +78,7 @@ Pantau Status: https://admin.smlone.id`;
           <div className="ticket-section">
             <div className="ticket-label">NAMA FITUR</div>
             <div className="ticket-feature-title">
-              {requestData.namaFitur}
+              {namaFitur}
             </div>
           </div>
 
@@ -86,21 +94,21 @@ Pantau Status: https://admin.smlone.id`;
               <div className="cell-label">
                 <User size={13} /> Nama Pengaju
               </div>
-              <div className="cell-value bold">{requestData.namaPengaju}</div>
+              <div className="cell-value bold">{namaPengaju}</div>
             </div>
 
             <div className="info-cell">
               <div className="cell-label">
                 <Phone size={13} /> WhatsApp
               </div>
-              <div className="cell-value break-word">{requestData.noWhatsapp}</div>
+              <div className="cell-value break-word">{noWhatsapp}</div>
             </div>
 
             <div className="info-cell full-width">
               <div className="cell-label">
                 <Mail size={13} /> Email Contact
               </div>
-              <div className="cell-value break-word">{requestData.email}</div>
+              <div className="cell-value break-word">{email}</div>
             </div>
           </div>
 
@@ -110,7 +118,7 @@ Pantau Status: https://admin.smlone.id`;
               <FileText size={13} /> DESKRIPSI REQUEST
             </div>
             <div className="ticket-desc-box">
-              {requestData.deskripsiRequest}
+              {deskripsi}
             </div>
           </div>
 

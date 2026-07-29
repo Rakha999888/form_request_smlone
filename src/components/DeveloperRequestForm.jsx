@@ -57,18 +57,18 @@ export default function DeveloperRequestForm({ onSubmitSuccess }) {
     try {
       let result = null;
       try {
-        const response = await fetch('/api/request', {
+        const response = await fetch('https://api.smlone.cloud/api/request', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            namaPengaju: formData.namaPengaju,
-            noWhatsapp: formData.noWhatsapp,
+            nama_pengaju: formData.namaPengaju,
+            no_whatsapp: formData.noWhatsapp,
             email: formData.email,
-            namaFitur: formData.namaFitur,
-            deskripsiRequest: formData.deskripsiRequest,
-            prioritas: formData.prioritas,
+            nama_fitur: formData.namaFitur,
+            deskripsi: formData.deskripsiRequest,
+            prioritas: formData.prioritas || 'Medium'
           }),
         });
 
@@ -81,10 +81,15 @@ export default function DeveloperRequestForm({ onSubmitSuccess }) {
         console.warn('Backend API connection failed, proceeding locally:', apiErr);
       }
 
-      // Create request payload if backend result is null
-      const requestData = result || {
-        id: 'REQ-' + Date.now().toString().slice(-6),
-        ...formData,
+      // Normalize request payload for display & local storage
+      const requestData = {
+        id: (result && (result.id || result.request_id)) ? (result.id || result.request_id) : ('REQ-' + Date.now().toString().slice(-6)),
+        namaPengaju: formData.namaPengaju,
+        noWhatsapp: formData.noWhatsapp,
+        email: formData.email,
+        namaFitur: formData.namaFitur,
+        deskripsiRequest: formData.deskripsiRequest,
+        prioritas: formData.prioritas || 'Medium',
         tanggal: new Date().toLocaleDateString('id-ID', {
           day: 'numeric',
           month: 'short',

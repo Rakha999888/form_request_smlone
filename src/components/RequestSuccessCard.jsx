@@ -127,15 +127,6 @@ Pantau Status: https://admin.smlone.id`;
         {/* Action Buttons Grid */}
         <div className="status-actions-container">
           
-          {/* Main Portal Button */}
-          <button
-            onClick={handleGoToPortal}
-            className="btn-submit btn-portal-primary"
-          >
-            <span>Lihat Status di Portal (admin.smlone.id)</span>
-            <ExternalLink size={18} />
-          </button>
-
           {/* Secondary Buttons Row */}
           <div className="secondary-btns-grid">
             <button

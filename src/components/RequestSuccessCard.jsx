@@ -28,7 +28,7 @@ export default function RequestSuccessCard({ requestData, onNewRequest }) {
 *Deskripsi:*
 ${deskripsi}
 ----------------------------------------
-Pantau Status: https://admin.smlone.id`;
+Pantau Status: https://admin.smlone.com`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);
@@ -36,7 +36,7 @@ Pantau Status: https://admin.smlone.id`;
   };
 
   const handleGoToPortal = () => {
-    window.location.href = 'https://admin.smlone.id';
+    window.location.href = 'https://admin.smlone.com';
   };
 
   return (
@@ -161,8 +161,8 @@ Pantau Status: https://admin.smlone.id`;
             <strong>Informasi Pengerjaan Website:</strong>
             <p>
               Website akan siap <strong>1-7 hari</strong> ke depan tergantung tingkat kesulitan. Silakan dipantau di{' '}
-              <a href="https://admin.smlone.id" target="_blank" rel="noreferrer" className="notice-link">
-                admin.smlone.id
+              <a href="https://admin.smlone.com" target="_blank" rel="noreferrer" className="notice-link">
+                admin.smlone.com
               </a>
             </p>
           </div>
